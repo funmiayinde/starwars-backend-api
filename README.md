@@ -11,8 +11,8 @@ Api web service written in Node, TypeOrm and Typescript
 
 
 ### Getting Started
-- Clone the repository `git clone https://github.com/mortfi/mortfi-backend.git`
-- Change into the directory `mortfi-backend-api`.
+- Clone the repository `git clone https://github.com/funmiayinde/starwars-backend-api.git`
+- Change into the directory `starwars-backend-api.git`.
 - Install all required dependencies with `npm install`
 - Start the application with `npm run dev`
 - Run unit test `npm test`
