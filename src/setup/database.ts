@@ -13,8 +13,8 @@ export default () => {
   const isNotProduction: boolean = `${config.util.getEnv('NODE_ENV')}` !== 'production';
   return createConnection({
     type: 'postgres',
-    host,
-    // url: host,
+    // host,
+    url: host,
     port: 5432,
     password,
     database: dbName,
