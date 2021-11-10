@@ -16,7 +16,7 @@
     "debug": "npm run build && npm run watch-debug",
     "dev": "nodemon src/app.ts",
     "serve": "node dist/src/app.js",
-    "deploy": "git push -f heroku develop:master",
+    "heroku:deploy": "git push -f heroku develop:master",
     "serve-debug": "nodemon --inspect dist/app.js",
     "start": "npm run serve",
     "test": "mocha -r ts-node/register __test__/**/*.spec.ts",
