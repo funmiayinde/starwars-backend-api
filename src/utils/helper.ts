@@ -90,8 +90,8 @@ export const CacheHelper = () => {
   // });
   return cacheManager.caching({
     store: redisStore,
-    host: config.get('redis.url'), // default value
-    port: 15020, // default value
+    host: config.get('redis.url'),
+    port: 15020, 
     password: config.get('redis.password'),
     db: 0,
     ttl: 30,
