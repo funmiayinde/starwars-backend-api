@@ -48,6 +48,7 @@ class MoviesController extends AppController {
     const pagination: Pagination = new Pagination(req.originalUrl);
     const cacheKey = req.originalUrl;
     const cache = await CacheHelper().get(cacheKey);
+    console.log('cache:::', cache);
     if (cache) {
       req.response = {
         code: OK,
@@ -79,7 +80,9 @@ class MoviesController extends AppController {
       }
       let result = null;
       const cacheKey = req.originalUrl;
+      console.log('cacheKey', cacheKey);
       const cache = await CacheHelper().get(cacheKey);
+      console.log('cache-result:', cache);
       if (!cache) {
         result = await processor.processCharacters(queryParser);
         await CacheHelper().set(cacheKey, result);

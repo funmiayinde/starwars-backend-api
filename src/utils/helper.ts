@@ -82,18 +82,22 @@ export const isCacheable = (req: any | Request) => {
 
 export const CacheHelper = () => {
   console.log('redis-url:', config.get('redis.url'));
-  // const redisInstance = new Redis({
-  //   host: config.get('redis.url') as string,
-  //   port: 15020,
-  //   password: config.get('redis.password') as string,
-  //   db: 0,
-  // });
-  return cacheManager.caching({
-    store: redisStore,
-    host: config.get('redis.url'),
-    port: 15020, 
-    password: config.get('redis.password'),
+  const redisInstance = new Redis({
+    host: config.get('redis.url') as string,
+    // host: 'localhost',
+    port: 15020,
+    // port: 6379,
+    password: config.get('redis.password') as string,
     db: 0,
-    ttl: 30,
   });
+  // return cacheManager.caching({
+  //   store: redisStore,
+  //   // host: config.get('redis.url') as string,
+  //   // port: 15020,
+  //   // password: config.get('redis.password') as string,
+  //   // password: 'dS7FuVN4mbE9y1obWnJOUIKhwhSnzDQw',
+  //   redisInstance,
+  //   ttl: 30,
+  // });
+  return cacheManager.caching({store: 'memory', max: 100, ttl: 30/*seconds*/});
 };
