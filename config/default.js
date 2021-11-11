@@ -35,5 +35,10 @@ module.exports = {
             base_url: process.env.STAR_WARS_BASE_URL || '',
         }
     },
+    redis: {
+        url: process.env.REDIS_URL || '',
+        password: process.env.REDIS_PASSWORD || '',
+        port: process.env.REDIS_PORT || 0000,
+    }
 
 };
