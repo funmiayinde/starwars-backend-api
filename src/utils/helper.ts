@@ -1,7 +1,12 @@
-import { INTERNAL_SERVER_ERROR } from './codes';
+import { GET, INTERNAL_SERVER_ERROR } from './codes';
 import axios from 'axios';
 import _ from 'lodash';
 import AppError from './app-error';
+import cacheManager from 'cache-manager';
+import redisStore from 'cache-manager-ioredis';
+import Redis from 'ioredis';
+import config from 'config';
+import { Request } from 'express';
 
 /**
  * @param {Number} size code length
@@ -61,4 +66,30 @@ export const pageData = (limit: any, offset: any, count: any, pageQuery: any) =>
 
 export const paginate = (page: any, records: any | any[], limit: any) => {
   return records.slice(limit * (page - 1), limit * page);
+};
+
+export const isCacheable = (req: any | Request) => {
+  const currentUrlPath = req.originalUrl.split('?')[0];
+  const cacheUrls = [
+    { route: 'movies', method: GET },
+    { route: 'movies/characters', method: GET },
+  ];
+  return _.filter(cacheUrls, (item) => {
+    const regex = new RegExp(`^/api/v[1-9]/${item.route}`);
+    return regex.test(currentUrlPath) && req.method.toLowerCase() == item.method;
+  });
+};
+
+export const CacheHelper = () => {
+  const redisInstance = new Redis({
+    host: config.get('redis.url') as string,
+    port: 15020,
+    password: config.get('redis.password') as string,
+    db: 0,
+  });
+  return cacheManager.caching({
+    store: redisStore,
+    redisInstance: redisInstance,
+    ttl: 30,
+  });
 };
